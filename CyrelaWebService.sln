@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivazMVC", "VivazMVC\VivazMVC.csproj", "{03189244-B6AF-4CD6-B06D-71B19722C65A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivazAPI", "VivazAPI\VivazAPI.csproj", "{1AB49795-4DC0-4C28-92DB-A8B25B1F3852}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03189244-B6AF-4CD6-B06D-71B19722C65A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03189244-B6AF-4CD6-B06D-71B19722C65A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03189244-B6AF-4CD6-B06D-71B19722C65A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03189244-B6AF-4CD6-B06D-71B19722C65A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AB49795-4DC0-4C28-92DB-A8B25B1F3852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AB49795-4DC0-4C28-92DB-A8B25B1F3852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AB49795-4DC0-4C28-92DB-A8B25B1F3852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AB49795-4DC0-4C28-92DB-A8B25B1F3852}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CE05AA13-2F75-4C39-BB78-BB6693647B78}
+	EndGlobalSection
+EndGlobal
