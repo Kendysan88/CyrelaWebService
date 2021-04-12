@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace VivazAPI.Models
 {
-    public class ActiveType : BaseEntity
+    public class ActivityType : BaseEntity
     {
         [Required]
         public string Description { get; set; }
