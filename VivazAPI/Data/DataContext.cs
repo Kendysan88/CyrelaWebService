@@ -9,8 +9,6 @@ namespace VivazAPI.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base (options) {}        
 
-        public DbSet<ActiveType> ActiveTypes { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // modelBuilder.Entity<User>().Property(x => x.Id).ValueGeneratedOnAdd();
