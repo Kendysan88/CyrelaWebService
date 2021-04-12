@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VivazAPI.Models
 {
-    [Table("active_types")]
     public class ActiveType : BaseEntity
     {
         [Required]

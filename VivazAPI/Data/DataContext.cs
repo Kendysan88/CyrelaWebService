@@ -10,6 +10,8 @@ namespace VivazAPI.Data
         public DataContext(DbContextOptions<DataContext> options) : base (options) {}        
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<ActiveType> ActiveTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

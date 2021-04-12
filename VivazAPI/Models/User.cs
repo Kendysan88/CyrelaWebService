@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VivazAPI.Models
 {
-    [Table("users")]
     public class User : BaseEntity
     {
         [Required]
