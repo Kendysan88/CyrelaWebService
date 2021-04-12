@@ -5,7 +5,7 @@ version: '3'
 services:
   postgresdb:
     image: postgres:12.5-alpine
-    container_name: postgresdb
+    container_name: postgresqldb
     env_file:
       - .env
     volumes:
