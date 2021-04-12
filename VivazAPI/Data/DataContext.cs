@@ -13,9 +13,15 @@ namespace VivazAPI.Data
         public DbSet<Brand> Brands { get; set; }
         public DbSet<ActiveType> ActiveTypes { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            builder.Entity<User>()
+            // modelBuilder.Entity<User>().Property(x => x.Id).ValueGeneratedOnAdd();
+            // modelBuilder.HasPostgresExtension("uuid-ossp")
+            //        .Entity<User>()
+            //        .Property(e => e.Id)
+            //        .HasDefaultValueSql("uuid_generate_v4()");
+
+            modelBuilder.Entity<User>()
                 .HasData(
                     new List<User>() {
                         new User {
@@ -39,7 +45,7 @@ namespace VivazAPI.Data
                     }
                 );
 
-            builder.Entity<Brand>()
+            modelBuilder.Entity<Brand>()
                 .HasData(
                     new List<Brand>() {
                         new Brand() {
@@ -57,7 +63,7 @@ namespace VivazAPI.Data
                     }
                 );
 
-            builder.Entity<ActiveType>()
+            modelBuilder.Entity<ActiveType>()
                 .HasData(
                     new List<ActiveType>() {
                         new ActiveType() {
