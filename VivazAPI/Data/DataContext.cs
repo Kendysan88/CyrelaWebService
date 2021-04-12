@@ -92,17 +92,17 @@ namespace VivazAPI.Data
                             Id   = Guid.NewGuid(),
                             Name = "São Paulo",
                             Uf   = "SP"
+                        },
+                        new AddressState() {
+                            Id   = Guid.NewGuid(),
+                            Name = "Rio de Janeiro",
+                            Uf   = "RJ"
+                        },
+                        new AddressState() {
+                            Id   = Guid.NewGuid(),
+                            Name = "Recife",
+                            Uf   = "RE"
                         }
-                    },
-                    new AddressState() {
-                        Id   = Guid.NewGuid(),
-                        Name = "Rio de Janeiro",
-                        Uf   = "RJ"
-                    },
-                    new AddressState() {
-                        Id   = Guid.NewGuid(),
-                        Name = "Recife",
-                        Uf   = "RE"
                     }
                 );
         }
