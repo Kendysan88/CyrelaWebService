@@ -5,7 +5,7 @@ using VivazAPI.Models;
 namespace VivazAPI.Controllers
 {
     [ApiController]
-    [Route("activity_types")]
+    [Route("api/activity_types")]
     public class ActivityTypesController : ControllerBase
     {
         private readonly IRepository<ActivityType> _repository;
