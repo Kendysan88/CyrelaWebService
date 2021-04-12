@@ -12,6 +12,7 @@ namespace VivazAPI.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<ActiveType> ActiveTypes { get; set; }
+        public DbSet<AddressState> AddressStates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -81,6 +82,27 @@ namespace VivazAPI.Data
                             Description     = "Fundações, estruturas principais e periféricas, contenções e arrimos, envolvendo segurança e estabilidade.",
                             WarrantyInYears = 5
                         }
+                    }
+                );
+
+            modelBuilder.Entity<AddressState>()
+                .HasData(
+                    new List<AddressState>() {
+                        new AddressState() {
+                            Id   = Guid.NewGuid(),
+                            Name = "São Paulo",
+                            Uf   = "SP"
+                        }
+                    },
+                    new AddressState() {
+                        Id   = Guid.NewGuid(),
+                        Name = "Rio de Janeiro",
+                        Uf   = "RJ"
+                    },
+                    new AddressState() {
+                        Id   = Guid.NewGuid(),
+                        Name = "Recife",
+                        Uf   = "RE"
                     }
                 );
         }
