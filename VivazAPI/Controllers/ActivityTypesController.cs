@@ -28,26 +28,14 @@ namespace VivazAPI.Controllers
         }
 
         // GET: api/ActivityTypes/5
-        [HttpGet("{garantia=}")]
+        [HttpGet("{garantia}")]
         public IQueryable<ActivityType> GetUserByName(int garantia)
         {
             var activityTypes = _context.ActivityTypes.Where(x => x.WarrantyInYears == garantia);
 
             return activityTypes;
         }
-        //[HttpGet("{garantia}")]
-        //public async Task<ActionResult<ActivityType>> GetActivityType(Guid id)
-        //{
-        //    var activityType = await _context.ActivityTypes.FindAsync(id);
-
-        //    if (activityType == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return activityType;
-        //}
-
+        
         // PUT: api/ActivityTypes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
