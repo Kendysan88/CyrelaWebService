@@ -9,65 +9,54 @@ namespace VivazAPI.Data
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
         private DataContext _context { get; }
-        private DbSet<T> dataset;
+        private DbSet<T> _dataset;
 
         public Repository(DataContext context)
         {
             _context = context;
-            dataset = _context.Set<T>();
+            _dataset = _context.Set<T>();
         }
 
         public IEnumerable<T> FindAll()
         {
-            return dataset.AsEnumerable();
+            return _dataset.ToList();
         }
 
         public T FindById(Guid id)
         {
-            return dataset.SingleOrDefault(p => p.Id.Equals(id));
+            return _dataset.SingleOrDefault(p => p.Id.Equals(id));
         }
 
-        public T Create(T entity)
+        public void Create(T entity)
         {
-            try
+            if(entity == null)
             {
-                dataset.Add(entity);
-                _context.SaveChanges();
-
-                return entity;
+                throw new ArgumentNullException(nameof(entity));
             }
-            catch (System.Exception)
-            {
-                throw;
-            }
+            _dataset.Add(entity);
         }
 
-        public T Update(T entity)
+        public void Update(T entity)
         {
-            try
+            if(entity == null)
             {
-                dataset.Update(entity);
-                _context.SaveChanges();
-
-                return entity;
+                throw new ArgumentNullException(nameof(entity));
             }
-            catch (System.Exception)
-            {
-                throw;
-            }
+            _dataset.Update(entity);
         }
 
         public void Delete(T entity)
         {
-            try
+            if(entity == null)
             {
-                dataset.Remove(entity);
-                _context.SaveChanges();
+                throw new ArgumentNullException(nameof(entity));
             }
-            catch (System.Exception)
-            {
-                throw;
-            }
+            _dataset.Remove(entity);
+        }
+
+        public bool SaveChanges()
+        {
+            return (_context.SaveChanges() >= 0);
         }
     }
 }

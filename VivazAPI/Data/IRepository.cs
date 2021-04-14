@@ -8,8 +8,9 @@ namespace VivazAPI.Data
     {
         T FindById(Guid id);
         IEnumerable<T> FindAll();
-        T Create(T entity);
-        T Update(T entity);
+        void Create(T entity);
+        void Update(T entity);
         void Delete(T entity);
+        bool SaveChanges();
     }
 }
