@@ -1,51 +1,115 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using VivazAPI.Data;
 using VivazAPI.Models;
 
 namespace VivazAPI.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("api/users")]
     public class UsersController : ControllerBase
     {
-        private readonly IRepository<User> _repository;
+        private readonly DataContext _context;
 
-        public UsersController(IRepository<User> repository)
+        public UsersController(DataContext context)
         {
-            _repository = repository;
+            _context = context;
         }
-        
+        private static readonly Expression<Func<User, UserDTO>> AsUserDto =
+            x => new UserDTO
+            {
+                Id = x.Id,
+                Email = x.Email,
+                Role = x.Role
+            };
+
+        // GET: api/Users
         [HttpGet]
-        public IActionResult Get()
+        public IQueryable<UserDTO> GetUsers()
         {
-           return Ok(); 
+            //return await _context.Users.ToListAsync();
+            return _context.Users
+                .Select(AsUserDto);
+
+        }
+        [HttpGet("{role}")]
+        public IQueryable<UserDTO> GetUserByName(string role)
+        {
+            var user = _context.Users.Where(x => x.Role.Contains(role)).Select(AsUserDto);
+
+            return user;
         }
 
-        [HttpGet("{UserId}")]
-        public IActionResult Get(string UserId)
+        // PUT: api/Users/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutUser(Guid id, User user)
         {
-           return Ok(); 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (id != user.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
+        // POST: api/Users
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public IActionResult Post(User user)
+        public async Task<ActionResult<User>> PostUser(User user)
         {
-           if(!ModelState.IsValid){
-              return BadRequest(ModelState);
-           }
-           return Ok(); 
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
-        [HttpPut("{UserId}")]
-        public IActionResult Put(string UserId)
+        // DELETE: api/Users/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
-           return Ok(); 
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
 
-        [HttpDelete("{UserId}")]
-        public IActionResult Delete(string UserId)
+        private bool UserExists(Guid id)
         {
-           return Ok(); 
+            return _context.Users.Any(e => e.Id == id);
         }
+
     }
 }
