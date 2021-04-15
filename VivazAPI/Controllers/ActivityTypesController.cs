@@ -18,7 +18,8 @@ namespace VivazAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-           return Ok(_repository.FindAll()); 
+            var activityTypes = _repository.FindAll();
+            return Ok(activityTypes);
         }
     }
 }
