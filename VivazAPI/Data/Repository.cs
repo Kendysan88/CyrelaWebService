@@ -53,5 +53,10 @@ namespace VivazAPI.Data
         {
             return (_context.SaveChanges() >= 0);
         }
+
+        public bool Exists(Guid id)
+        {
+            return _dataset.Any(e => e.Id == id);
+        }
     }
 }
