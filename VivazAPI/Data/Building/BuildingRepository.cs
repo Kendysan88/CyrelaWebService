@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using VivazAPI.Models;
 
 namespace VivazAPI.Data
@@ -8,9 +9,9 @@ namespace VivazAPI.Data
     {
         public BuildingRepository(DataContext context) : base(context) { }
 
-        public IEnumerable<Building> FindAllByUserId(Guid id)
+        public IEnumerable<Building> FindAllByCustomerId(Guid id)
         {
-            throw new NotImplementedException();
+            return _context.Set<Building>().Where(e => e.CustomerId == id);
         }
     }
 }

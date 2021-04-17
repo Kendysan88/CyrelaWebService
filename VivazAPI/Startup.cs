@@ -31,6 +31,7 @@ namespace VivazAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "VivazAPI", Version = "v1" });
             });
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IBuildingRepository, BuildingRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 

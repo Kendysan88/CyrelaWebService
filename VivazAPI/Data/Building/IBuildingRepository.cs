@@ -6,6 +6,6 @@ namespace VivazAPI.Data
 {
     public interface IBuildingRepository : IRepository<Building>
     {
-        IEnumerable<Building> FindAllByUserId(Guid id);
+        IEnumerable<Building> FindAllByCustomerId(Guid id);
     }
 }
