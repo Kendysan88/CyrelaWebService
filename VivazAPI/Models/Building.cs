@@ -37,5 +37,7 @@ namespace VivazAPI.Models
         public Guid AddressStateId { get; set; }
 
         public AddressState AddressState { get; set; }
+
+        public DateTime? InspectionDate { get; set; }
   }
 }

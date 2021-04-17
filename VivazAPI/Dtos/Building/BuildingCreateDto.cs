@@ -31,5 +31,7 @@ namespace VivazAPI.Dtos
 
         [Required]
         public Guid AddressStateId { get; set; }
+
+        public DateTime? InspectionDate { get; set; }
     }
 }

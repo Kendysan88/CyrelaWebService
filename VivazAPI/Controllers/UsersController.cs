@@ -47,7 +47,7 @@ namespace VivazAPI.Controllers
             }
             else
             {
-                return BadRequest();
+                return NotFound();
             }
         }
 

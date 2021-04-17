@@ -10,6 +10,8 @@ namespace VivazAPI.Properties
         {
             CreateMap<Building, BuildingReadDto>();
             CreateMap<BuildingCreateDto, Building>();
+            CreateMap<BuildingUpdateDto, Building>();
+            CreateMap<Building, BuildingUpdateDto>();
         }
     }
 }
