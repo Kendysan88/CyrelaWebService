@@ -13,6 +13,7 @@ namespace VivazAPI.Data
         public DbSet<Brand> Brands { get; set; }
         public DbSet<ActivityType> ActivityTypes { get; set; }
         public DbSet<AddressState> AddressStates { get; set; }
+        public DbSet<Building> Buildings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

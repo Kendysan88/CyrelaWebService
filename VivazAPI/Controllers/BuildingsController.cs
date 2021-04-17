@@ -1,6 +1,9 @@
+using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using VivazAPI.Data;
 using VivazAPI.Models;
+using VivazAPI.Dtos;
 
 namespace VivazAPI.Controllers
 {
@@ -10,16 +13,37 @@ namespace VivazAPI.Controllers
     {
         private readonly IRepository<Building> _repository;
 
-        public BuildingsController(IRepository<Building> repository)
+        private readonly IMapper _mapper;
+
+        public BuildingsController(IRepository<Building> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
         
         [HttpGet]
         public IActionResult Get()
         {
             var buildings = _repository.FindAll();
-            return Ok(buildings);
+            return Ok(_mapper.Map<IEnumerable<BuildingReadDto>>(buildings));
+        }
+
+        [HttpPost]
+        public IActionResult Post(BuildingCreateDto buildingCreateDto)
+        {
+            var buildingModel = _mapper.Map<Building>(buildingCreateDto);
+
+            _repository.Create(buildingModel);
+
+            if (_repository.SaveChanges())
+            {
+                return Ok(_mapper.Map<BuildingReadDto>(buildingModel));
+            }
+            else
+            {
+                return BadRequest();
+            }
+
         }
     }
 }

@@ -8,7 +8,7 @@ namespace VivazAPI.Data
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        private DataContext _context { get; }
+        protected DataContext _context { get; }
 
         private DbSet<T> _dataset;
 
