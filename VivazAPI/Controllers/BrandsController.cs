@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using VivazAPI.Data;
+using VivazAPI.Dtos;
 using VivazAPI.Models;
 
 namespace VivazAPI.Controllers
@@ -10,16 +13,19 @@ namespace VivazAPI.Controllers
     {
         private readonly IRepository<Brand> _repository;
 
-        public BrandsController(IRepository<Brand> repository)
+        private readonly IMapper _mapper;
+
+        public BrandsController(IRepository<Brand> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
         
         [HttpGet]
         public IActionResult Get()
         {
             var brands = _repository.FindAll();
-            return Ok(brands);
+            return Ok(_mapper.Map<IEnumerable<BrandReadDto>>(brands));
         }
     }
 }
