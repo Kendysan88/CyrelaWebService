@@ -16,16 +16,20 @@ namespace VivazAPI.Controllers
 
         private readonly IBuildingRepository _buildingRepository;
 
+        private readonly IOccurenceRepository _occurenceRepository;
+
         public readonly IMapper _mapper;
 
         public UsersController(
             IRepository<User> repository,
             IBuildingRepository buildingRepository,
+            IOccurenceRepository occurenceRepository,
             IMapper mapper
         )
         {
             _repository = repository;
             _buildingRepository = buildingRepository;
+            _occurenceRepository = occurenceRepository;
             _mapper = mapper;
         }
         
@@ -56,6 +60,13 @@ namespace VivazAPI.Controllers
         {
             var buildings = _buildingRepository.FindAllByCustomerId(userId);
             return Ok(_mapper.Map<IEnumerable<BuildingReadDto>>(buildings));
+        }
+
+        [HttpGet("{userId}/occurences")]
+        public IActionResult GetOccurences(Guid userId)
+        {
+            var occurences = _occurenceRepository.FindAllByCustomerId(userId);
+            return Ok(_mapper.Map<IEnumerable<OccurenceReadDto>>(occurences));
         }
     }
 }

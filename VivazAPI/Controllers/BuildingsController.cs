@@ -47,12 +47,12 @@ namespace VivazAPI.Controllers
 
         }
 
-        [HttpPost("{id}")]
-        public IActionResult Post(Guid id, BuildingUpdateDto buildingUpdateDto)
+        [HttpPut("{id}")]
+        public IActionResult Put(Guid id, BuildingUpdateDto buildingUpdateDto)
         {
             var building = _repository.FindById(id);
 
-            if (building == null) NotFound();
+            if (building == null) return NotFound();
 
             _mapper.Map(buildingUpdateDto, building);
             _repository.Update(building);
