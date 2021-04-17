@@ -13,29 +13,30 @@ namespace VivazAPI.Controllers
     [ApiController]
     public class ActivityTypesController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly ActivityTypeRepository<ActivityType> _repository;
 
-        public ActivityTypesController(DataContext context)
+        public ActivityTypesController(ActivityTypeRepository<ActivityType> repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         // GET: api/ActivityTypes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ActivityType>>> GetActivityTypes()
+        public ActionResult<IEnumerable<ActivityType>> GetActivityTypes()
         {
-            return await _context.ActivityTypes.ToListAsync();
+            var activityItem = _repository.FindAll();
+            return Ok(activityItem);
         }
 
-        // GET: api/ActivityTypes/5
+        // GET: api/ActivityTypes/warranty
         [HttpGet("{garantia}")]
-        public IQueryable<ActivityType> GetUserByName(int garantia)
+        public ActionResult<ActivityType> GetWarranty(int garantia)
         {
-            var activityTypes = _context.ActivityTypes.Where(x => x.WarrantyInYears == garantia);
-
-            return activityTypes;
+            var activityTypes = _repository.FindByWarranty(garantia);
+                
+            return Ok(activityTypes);
         }
-        
+        /*
         // PUT: api/ActivityTypes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -98,5 +99,6 @@ namespace VivazAPI.Controllers
         {
             return _context.ActivityTypes.Any(e => e.Id == id);
         }
+        */
     }
 }

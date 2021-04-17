@@ -1,10 +1,13 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using VivazAPI.Data;
+using VivazAPI.Dtos;
 using VivazAPI.Models;
 
 namespace VivazAPI.Controllers
@@ -13,37 +16,31 @@ namespace VivazAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly UserRepository<User> _repository;
+        private readonly IMapper _mapper;
 
-        public UsersController(DataContext context)
+        public UsersController(UserRepository<User> repository, IMapper mapper)
         {
-            _context = context;
+            _repository = repository;
+            _mapper = mapper;
         }
-        private static readonly Expression<Func<User, UserDTO>> AsUserDto =
-            x => new UserDTO
-            {
-                Id = x.Id,
-                Email = x.Email,
-                Role = x.Role
-            };
+
 
         // GET: api/Users
         [HttpGet]
-        public IQueryable<UserDTO> GetUsers()
+        public ActionResult<IEnumerable<UserReadDTO>> Get()
         {
-            //return await _context.Users.ToListAsync();
-            return _context.Users
-                .Select(AsUserDto);
-
+            var userItem = _repository.FindAll();
+            return Ok(_mapper.Map<IEnumerable<UserReadDTO>>(userItem));
         }
+        //GET: api/user/admin
         [HttpGet("{role}")]
-        public IQueryable<UserDTO> GetUserByName(string role)
+        public ActionResult<IEnumerable<UserReadDTO>> GetRole(string role)
         {
-            var user = _context.Users.Where(x => x.Role.Contains(role)).Select(AsUserDto);
-
-            return user;
+            var userItem = _repository.FindByRole(role);
+            return Ok(_mapper.Map<IEnumerable<UserReadDTO>>(userItem));
         }
-
+        /*
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -110,6 +107,6 @@ namespace VivazAPI.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
-
+        */
     }
 }

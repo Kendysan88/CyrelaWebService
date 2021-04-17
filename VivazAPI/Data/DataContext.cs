@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using VivazAPI.Dtos;
 using VivazAPI.Models;
 
 namespace VivazAPI.Data
@@ -13,6 +14,8 @@ namespace VivazAPI.Data
         public DbSet<Brand> Brands { get; set; }
         public DbSet<ActivityType> ActivityTypes { get; set; }
         public DbSet<AddressState> AddressStates { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,7 +24,6 @@ namespace VivazAPI.Data
             //        .Entity<User>()
             //        .Property(e => e.Id)
             //        .HasDefaultValueSql("uuid_generate_v4()");
-
             modelBuilder.Entity<User>()
                 .HasData(
                     new List<User>() {

@@ -4,15 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace VivazAPI.Models
+namespace VivazAPI.Dtos
 {
-    public class UserDTO
+    public class UserReadDTO
     {
-        [Key]
-        public Guid Id { get; set; }
-        //[Required]
+        [Required]
         public string Email { get; set; }
-        //[Required]
+        // TODO: use enum
+        [Required]
         public string Role { get; set; }
     }
 }

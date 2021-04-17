@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
 using VivazAPI.Data;
 
 namespace VivazAPI
@@ -25,6 +26,11 @@ namespace VivazAPI
                 x => x.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
             );
             services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped(typeof(UserRepository<>));
+            services.AddScoped(typeof(ActivityTypeRepository<>));
+            services.AddScoped(typeof(ScheduleRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "VivazAPI", Version = "v1" });

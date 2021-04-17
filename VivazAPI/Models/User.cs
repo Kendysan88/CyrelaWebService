@@ -1,12 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace VivazAPI.Models
 {
-    public class User : IValidatableObject
+    public class User : BaseEntity, IValidatableObject
     {
-        [Key]
-        public Guid Id { get; set; }
         //[Required]
         public string Email { get; set; }
 
@@ -16,7 +15,7 @@ namespace VivazAPI.Models
         //[Required]
         public string Role { get; set; }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
             if (string.IsNullOrWhiteSpace(this.Password))
             {

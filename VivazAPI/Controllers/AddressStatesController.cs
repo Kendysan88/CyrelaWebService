@@ -14,95 +14,96 @@ namespace VivazAPI.Controllers
     [ApiController]
     public class AddressStatesController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IRepository<AddressState> _repository;
 
-        public AddressStatesController(DataContext context)
+        public AddressStatesController(IRepository<AddressState> repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         // GET: api/AddressStates
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AddressState>>> GetAddressStates()
+        public ActionResult<IEnumerable<AddressState>> GetAddressStates()
         {
-            return await _context.AddressStates.ToListAsync();
+            var userItem = _repository.FindAll();
+            return Ok(userItem);
         }
 
-        // GET: api/AddressStates/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<AddressState>> GetAddressState(Guid id)
-        {
-            var addressState = await _context.AddressStates.FindAsync(id);
+        /*  // GET: api/AddressStates/5
+          [HttpGet("{id}")]
+          public async Task<ActionResult<AddressState>> GetAddressState(Guid id)
+          {
+              var addressState = await _context.AddressStates.FindAsync(id);
 
-            if (addressState == null)
-            {
-                return NotFound();
-            }
+              if (addressState == null)
+              {
+                  return NotFound();
+              }
 
-            return addressState;
-        }
+              return addressState;
+          }
 
-        // PUT: api/AddressStates/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAddressState(Guid id, AddressState addressState)
-        {
-            if (id != addressState.Id)
-            {
-                return BadRequest();
-            }
+          // PUT: api/AddressStates/5
+          // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+          [HttpPut("{id}")]
+          public async Task<IActionResult> PutAddressState(Guid id, AddressState addressState)
+          {
+              if (id != addressState.Id)
+              {
+                  return BadRequest();
+              }
 
-            _context.Entry(addressState).State = EntityState.Modified;
+              _context.Entry(addressState).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AddressStateExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+              try
+              {
+                  await _context.SaveChangesAsync();
+              }
+              catch (DbUpdateConcurrencyException)
+              {
+                  if (!AddressStateExists(id))
+                  {
+                      return NotFound();
+                  }
+                  else
+                  {
+                      throw;
+                  }
+              }
 
-            return NoContent();
-        }
+              return NoContent();
+          }
 
-        // POST: api/AddressStates
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<AddressState>> PostAddressState(AddressState addressState)
-        {
-            _context.AddressStates.Add(addressState);
-            await _context.SaveChangesAsync();
+          // POST: api/AddressStates
+          // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+          [HttpPost]
+          public async Task<ActionResult<AddressState>> PostAddressState(AddressState addressState)
+          {
+              _context.AddressStates.Add(addressState);
+              await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAddressState", new { id = addressState.Id }, addressState);
-        }
+              return CreatedAtAction("GetAddressState", new { id = addressState.Id }, addressState);
+          }
 
-        // DELETE: api/AddressStates/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAddressState(Guid id)
-        {
-            var addressState = await _context.AddressStates.FindAsync(id);
-            if (addressState == null)
-            {
-                return NotFound();
-            }
+          // DELETE: api/AddressStates/5
+          [HttpDelete("{id}")]
+          public async Task<IActionResult> DeleteAddressState(Guid id)
+          {
+              var addressState = await _context.AddressStates.FindAsync(id);
+              if (addressState == null)
+              {
+                  return NotFound();
+              }
 
-            _context.AddressStates.Remove(addressState);
-            await _context.SaveChangesAsync();
+              _context.AddressStates.Remove(addressState);
+              await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
+              return NoContent();
+          }
 
-        private bool AddressStateExists(Guid id)
-        {
-            return _context.AddressStates.Any(e => e.Id == id);
-        }
+          private bool AddressStateExists(Guid id)
+          {
+              return _context.AddressStates.Any(e => e.Id == id);
+          }*/
     }
 }
