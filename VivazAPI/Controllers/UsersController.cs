@@ -1,5 +1,9 @@
+using System;
+using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using VivazAPI.Data;
+using VivazAPI.Dtos;
 using VivazAPI.Models;
 
 namespace VivazAPI.Controllers
@@ -10,42 +14,48 @@ namespace VivazAPI.Controllers
     {
         private readonly IRepository<User> _repository;
 
-        public UsersController(IRepository<User> repository)
+        private readonly IBuildingRepository _buildingRepository;
+
+        public readonly IMapper _mapper;
+
+        public UsersController(
+            IRepository<User> repository,
+            IBuildingRepository buildingRepository,
+            IMapper mapper
+        )
         {
             _repository = repository;
+            _buildingRepository = buildingRepository;
+            _mapper = mapper;
         }
         
         [HttpGet]
         public IActionResult Get()
         {
-           return Ok(); 
+            var users = _repository.FindAll();
+           return Ok(_mapper.Map<IEnumerable<UserReadDto>>(users));
         }
 
-        [HttpGet("{UserId}")]
-        public IActionResult Get(string UserId)
+        [HttpGet("{userId}")]
+        public IActionResult Get(Guid userId)
         {
-           return Ok(); 
+            var user = _repository.FindById(userId);
+
+            if (user != null)
+            {
+                return Ok(_mapper.Map<UserReadDto>(user));
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
-        [HttpPost]
-        public IActionResult Post(User user)
+        [HttpGet("{userId}/buildings")]
+        public IActionResult GetBuildings(Guid userId)
         {
-           if(!ModelState.IsValid){
-              return BadRequest(ModelState);
-           }
-           return Ok(); 
-        }
-
-        [HttpPut("{UserId}")]
-        public IActionResult Put(string UserId)
-        {
-           return Ok(); 
-        }
-
-        [HttpDelete("{UserId}")]
-        public IActionResult Delete(string UserId)
-        {
-           return Ok(); 
+            var buildings = _buildingRepository.FindAllByCustomerId(userId);
+            return Ok(_mapper.Map<IEnumerable<BuildingReadDto>>(buildings));
         }
     }
 }
