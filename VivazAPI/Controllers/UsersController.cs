@@ -33,7 +33,7 @@ namespace VivazAPI.Controllers
         public IActionResult Get()
         {
             var users = _repository.FindAll();
-           return Ok(_mapper.Map<IEnumerable<UserReadDto>>(users));
+            return Ok(_mapper.Map<IEnumerable<UserReadDto>>(users));
         }
 
         [HttpGet("{userId}")]

@@ -52,14 +52,14 @@ namespace VivazAPI.Controllers
         {
             var building = _repository.FindById(id);
 
-            if(building == null) NotFound();
+            if (building == null) NotFound();
 
             _mapper.Map(buildingUpdateDto, building);
             _repository.Update(building);
 
             if (_repository.SaveChanges())
             {
-                return NoContent();
+                return Ok(_mapper.Map<BuildingReadDto>(building));
             }
             else
             {
