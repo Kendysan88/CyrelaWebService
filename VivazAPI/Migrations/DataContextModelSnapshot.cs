@@ -127,7 +127,7 @@ namespace VivazAPI.Migrations
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("InspectionDate")
+                    b.Property<DateTime>("InspectionDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("UpdatedAt")

@@ -38,6 +38,6 @@ namespace VivazAPI.Models
 
         public AddressState AddressState { get; set; }
 
-        public DateTime? InspectionDate { get; set; }
+        public DateTime InspectionDate { get; set; }
   }
 }

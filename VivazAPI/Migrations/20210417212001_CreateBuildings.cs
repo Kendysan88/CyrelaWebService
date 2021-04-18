@@ -20,7 +20,7 @@ namespace VivazAPI.Migrations
                     AddressNeighborhood = table.Column<string>(type: "text", nullable: false),
                     AddressCity = table.Column<string>(type: "text", nullable: false),
                     AddressStateId = table.Column<Guid>(type: "uuid", nullable: false),
-                    InspectionDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    InspectionDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
