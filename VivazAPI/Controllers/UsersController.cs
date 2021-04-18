@@ -58,7 +58,7 @@ namespace VivazAPI.Controllers
         [HttpGet("{userId}/buildings")]
         public IActionResult GetBuildings(Guid userId)
         {
-            if (!_repository.Exists(userId)) return NotFound("User does not exist.");
+            if (!_repository.Exists(userId)) return NotFound();
 
             var buildings = _buildingRepository.FindAllByCustomerId(userId);
             return Ok(_mapper.Map<IEnumerable<BuildingReadDto>>(buildings));
@@ -67,7 +67,7 @@ namespace VivazAPI.Controllers
         [HttpGet("{userId}/occurrences")]
         public IActionResult GetOccurrences(Guid userId)
         {
-            if (!_repository.Exists(userId)) return NotFound("User does not exist.");
+            if (!_repository.Exists(userId)) return NotFound();
 
             var occurrences = _occurrenceRepository.FindAllByCustomerId(userId);
             return Ok(_mapper.Map<IEnumerable<OccurrenceReadDto>>(occurrences));
