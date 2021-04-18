@@ -26,7 +26,7 @@ namespace VivazAPI.Controllers
         public IActionResult Get()
         {
             var buildings = _repository.FindAllWithAssociations();
-            return Ok(_mapper.Map<IEnumerable<BuildingReadDto>>(buildings));
+            return Ok(_mapper.Map<IEnumerable<BuildingWithDetailsReadDto>>(buildings));
         }
 
         [HttpGet("{id}")]
@@ -36,7 +36,7 @@ namespace VivazAPI.Controllers
 
             if (building != null)
             {
-                return Ok(_mapper.Map<BuildingReadDto>(building));
+                return Ok(_mapper.Map<BuildingWithDetailsReadDto>(building));
             }
             else
             {

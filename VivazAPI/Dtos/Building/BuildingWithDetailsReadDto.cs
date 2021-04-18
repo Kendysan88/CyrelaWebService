@@ -2,11 +2,11 @@ using System;
 
 namespace VivazAPI.Dtos
 {
-    public class BuildingReadDto
+    public class BuildingWithDetailsReadDto
     {
         public Guid Id { get; set; }
-        public Guid CustomerId { get; set; }
-        public Guid BrandId { get; set; }
+        public UserReadDto Customer { get; set; }
+        public BrandReadDto Brand { get; set; }
         public string AddressStreet { get; set; }
         public string AddressNumber { get; set; }
         public string AddressPostalCode { get; set; }
