@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace VivazAPI.Dtos
 {
-    public class OccurenceUpdateDto
+    public class OccurrenceCreateDto
     {
         // Customer
         [Required]
@@ -18,8 +18,5 @@ namespace VivazAPI.Dtos
         public Guid ActivityId { get; set; }
 
         public string Description { get; set; }
-
-        [Required]
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
     }
 }

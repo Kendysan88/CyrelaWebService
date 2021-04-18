@@ -32,7 +32,7 @@ namespace VivazAPI
             });
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IBuildingRepository, BuildingRepository>();
-            services.AddScoped<IOccurenceRepository, OccurenceRepository>();
+            services.AddScoped<IOccurrenceRepository, OccurrenceRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 

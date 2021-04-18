@@ -14,6 +14,6 @@ namespace VivazAPI.Data
         public DbSet<ActivityType> ActivityTypes { get; set; }
         public DbSet<AddressState> AddressStates { get; set; }
         public DbSet<Building> Buildings { get; set; }
-        public DbSet<Occurence> Occurences { get; set; }
+        public DbSet<Occurrence> Occurrences { get; set; }
     }
 }

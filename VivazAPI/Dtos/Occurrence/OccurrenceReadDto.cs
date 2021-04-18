@@ -2,7 +2,7 @@ using System;
 
 namespace VivazAPI.Dtos
 {
-    public class OccurenceReadDto
+    public class OccurrenceReadDto
     {
         public Guid Id { get; set; }
         public Guid CustomerId { get; set; }

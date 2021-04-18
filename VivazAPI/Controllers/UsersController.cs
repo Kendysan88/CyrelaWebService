@@ -16,20 +16,20 @@ namespace VivazAPI.Controllers
 
         private readonly IBuildingRepository _buildingRepository;
 
-        private readonly IOccurenceRepository _occurenceRepository;
+        private readonly IOccurrenceRepository _occurrenceRepository;
 
         public readonly IMapper _mapper;
 
         public UsersController(
             IRepository<User> repository,
             IBuildingRepository buildingRepository,
-            IOccurenceRepository occurenceRepository,
+            IOccurrenceRepository occurrenceRepository,
             IMapper mapper
         )
         {
             _repository = repository;
             _buildingRepository = buildingRepository;
-            _occurenceRepository = occurenceRepository;
+            _occurrenceRepository = occurrenceRepository;
             _mapper = mapper;
         }
         
@@ -64,13 +64,13 @@ namespace VivazAPI.Controllers
             return Ok(_mapper.Map<IEnumerable<BuildingReadDto>>(buildings));
         }
 
-        [HttpGet("{userId}/occurences")]
-        public IActionResult GetOccurences(Guid userId)
+        [HttpGet("{userId}/occurrences")]
+        public IActionResult GetOccurrences(Guid userId)
         {
             if (!_repository.Exists(userId)) return NotFound("User does not exist.");
 
-            var occurences = _occurenceRepository.FindAllByCustomerId(userId);
-            return Ok(_mapper.Map<IEnumerable<OccurenceReadDto>>(occurences));
+            var occurrences = _occurrenceRepository.FindAllByCustomerId(userId);
+            return Ok(_mapper.Map<IEnumerable<OccurrenceReadDto>>(occurrences));
         }
     }
 }

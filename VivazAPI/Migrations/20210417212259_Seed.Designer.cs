@@ -146,7 +146,7 @@ namespace VivazAPI.Migrations
                     b.ToTable("Buildings");
                 });
 
-            modelBuilder.Entity("VivazAPI.Models.Occurence", b =>
+            modelBuilder.Entity("VivazAPI.Models.Occurrence", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -181,7 +181,7 @@ namespace VivazAPI.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Occurences");
+                    b.ToTable("Occurrences");
                 });
 
             modelBuilder.Entity("VivazAPI.Models.User", b =>
@@ -240,7 +240,7 @@ namespace VivazAPI.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("VivazAPI.Models.Occurence", b =>
+            modelBuilder.Entity("VivazAPI.Models.Occurrence", b =>
                 {
                     b.HasOne("VivazAPI.Models.ActivityType", "ActivityType")
                         .WithMany()
