@@ -1,11 +1,11 @@
-# docker container exec --tty --interactive postgresdb psql -Ucyrela_user -W -d cyrela_development
+# docker container exec --tty --interactive postgresqldb psql -Ucyrela_user -W -d cyrela_development
 
 version: '3'
 
 services:
   postgresdb:
     image: postgres:12.5-alpine
-    container_name: postgresdb
+    container_name: postgresqldb
     env_file:
       - .env
     volumes:
