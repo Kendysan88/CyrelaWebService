@@ -4,11 +4,11 @@ using VivazAPI.Models;
 
 namespace VivazAPI.Profiles
 {
-    public class UsersProfile : Profile
+    public class BrandsProfile : Profile
     {
-        public UsersProfile()
+        public BrandsProfile()
         {
-            CreateMap<User, UserReadDto>();
+            CreateMap<Brand, BrandReadDto>();
         }
     }
 }

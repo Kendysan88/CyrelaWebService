@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using VivazAPI.Data;
+using VivazAPI.Data.Occurence;
+using VivazAPI.Domain;
 
 namespace VivazAPI
 {
@@ -27,9 +29,12 @@ namespace VivazAPI
             );
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped(typeof(UserRepository<>));
-            services.AddScoped(typeof(ActivityTypeRepository<>));
-            services.AddScoped(typeof(ScheduleRepository<>));
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IActivityTypeRepository, ActivityTypeRepository>();
+            services.AddScoped<IScheduleRepository, ScheduleRepository>();
+            services.AddScoped<IBuildingRepository, BuildingRepository>();
+            services.AddScoped<IOccurrenceRepository, OccurrenceRepository>();
+            services.AddScoped<IOccurrenceInWarranty, OccurrenceInWarranty>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddSwaggerGen(c =>
             {

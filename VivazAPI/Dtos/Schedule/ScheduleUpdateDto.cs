@@ -1,15 +1,17 @@
 ﻿using System;
-using VivazAPI.Dtos;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace VivazAPI.Models
+namespace VivazAPI.Dtos
 {
-    public class Schedule : BaseEntity
+    public class ScheduleUpdateDto
     {
-        //User
-        public Guid EmployeeId { get; set; }
+        public Guid Id { get; set; }
+        //Employee
         public UserReadDto Employee { get; set; }
         //Occurence
-        public Guid OccurenceId { get; set; }        
+        public Guid OccurenceId { get; set; }
         public OccurrenceWithDetailsReadDto Occurence { get; set; }
         public DateTime ActualStart { get; set; }
         public DateTime ActualEnd { get; set; }

@@ -1,100 +1,41 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using VivazAPI.Data;
-using VivazAPI.Models;
+using VivazAPI.Dtos;
 
 namespace VivazAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/activity_types")]
     [ApiController]
     public class ActivityTypesController : ControllerBase
     {
-        private readonly ActivityTypeRepository<ActivityType> _repository;
+        private readonly IActivityTypeRepository _repository;
+        private readonly IMapper _mapper;
 
-        public ActivityTypesController(ActivityTypeRepository<ActivityType> repository)
+        public ActivityTypesController(IActivityTypeRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         // GET: api/ActivityTypes
         [HttpGet]
-        public ActionResult<IEnumerable<ActivityType>> GetActivityTypes()
+        public IActionResult Get()
         {
-            var activityItem = _repository.FindAll();
-            return Ok(activityItem);
+            var activityTypes = _repository.FindAll();
+            return Ok(_mapper.Map<IEnumerable<ActivityTypeReadDto>>(activityTypes));
         }
 
         // GET: api/ActivityTypes/warranty
-        [HttpGet("{garantia}")]
-        public ActionResult<ActivityType> GetWarranty(int garantia)
+        [HttpGet("{warranty}")]
+        public IActionResult GetWarranty(int warranty)
         {
-            var activityTypes = _repository.FindByWarranty(garantia);
-                
+            var activityTypes = _repository.FindByWarranty(warranty);               
             return Ok(activityTypes);
         }
+       
         /*
-        // PUT: api/ActivityTypes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutActivityType(Guid id, ActivityType activityType)
-        {
-            if (id != activityType.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(activityType).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ActivityTypeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/ActivityTypes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<ActivityType>> PostActivityType(ActivityType activityType)
-        {
-            _context.ActivityTypes.Add(activityType);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetActivityType", new { id = activityType.Id }, activityType);
-        }
-
-        // DELETE: api/ActivityTypes/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteActivityType(Guid id)
-        {
-            var activityType = await _context.ActivityTypes.FindAsync(id);
-            if (activityType == null)
-            {
-                return NotFound();
-            }
-
-            _context.ActivityTypes.Remove(activityType);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
         private bool ActivityTypeExists(Guid id)
         {
             return _context.ActivityTypes.Any(e => e.Id == id);

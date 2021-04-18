@@ -9,7 +9,7 @@ namespace VivazAPI.Data
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        private DataContext _context { get; }
+        protected DataContext _context { get; }
         private DbSet<T> _dataset;
 
         public Repository(DataContext context)
@@ -30,34 +30,31 @@ namespace VivazAPI.Data
 
         public void Create(T entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
+            if (entity == null) throw new ArgumentNullException(nameof(entity));
+            
             _dataset.Add(entity);
         }
 
         public void Update(T entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
+            if (entity == null) throw new ArgumentNullException(nameof(entity));
             _dataset.Update(entity);
         }
 
         public void Delete(T entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
+            if (entity == null) throw new ArgumentNullException(nameof(entity));
+            
             _dataset.Remove(entity);
         }
 
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
-        }     
+        }
+        public bool Exists(Guid id)
+        {
+            return _dataset.Any(e => e.Id == id);
+        }
     }
 }

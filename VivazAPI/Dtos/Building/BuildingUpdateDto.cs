@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace VivazAPI.Dtos
 {
-    public class UserReadDTO
+    public class BuildingUpdateDto
     {
         [Required]
-        public string Email { get; set; }
-        // TODO: use enum
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
         [Required]
-        public string Role { get; set; }
+        public DateTime InspectionDate { get; set; } = DateTime.Now;
     }
 }

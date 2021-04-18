@@ -1,27 +1,33 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VivazAPI.Data;
+using VivazAPI.Dtos;
 using VivazAPI.Models;
 
 namespace VivazAPI.Controllers
 {
-    [Route("api/[controller]")]
+   
     [ApiController]
+    [Route("api/schedule")]
     public class SchedulesController : ControllerBase
     {
-        private readonly ScheduleRepository<Schedule> _repository;
+        private readonly IScheduleRepository _repository;
+        private readonly IMapper _mapper;
+
         //private readonly IMapper _mapper;
 
-        public SchedulesController(ScheduleRepository<Schedule> repository)
+        public SchedulesController(IScheduleRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
         // GET: api/Users
         [HttpGet]
-        public ActionResult<IEnumerable<Schedule>> GetSchedule()
+        public ActionResult<IEnumerable<ScheduleReadDto>> GetSchedule()
         {
             var scheduleItem = _repository.FindAll();
             return Ok(scheduleItem);
