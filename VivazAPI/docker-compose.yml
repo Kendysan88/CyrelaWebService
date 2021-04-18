@@ -1,0 +1,17 @@
+# docker container exec --tty --interactive postgresdb psql -Ucyrela_user -W -d cyrela_development
+
+version: '3'
+
+services:
+  postgresdb:
+    image: postgres:12.5-alpine
+    container_name: postgresdb
+    env_file:
+      - .env
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+volumes:
+  postgres-data:
