@@ -15,6 +15,7 @@ namespace VivazAPI.Data
             return _context.Set<Building>()
                 .Include(e => e.Brand)
                 .Include(e => e.Customer)
+                .Include(e => e.AddressState)
                 .AsEnumerable();
         }
 
@@ -23,6 +24,7 @@ namespace VivazAPI.Data
             return _context.Set<Building>()
                 .Include(e => e.Brand)
                 .Include(e => e.Customer)
+                .Include(e => e.AddressState)
                 .SingleOrDefault(e => e.Id == id);
         }
 
@@ -31,6 +33,7 @@ namespace VivazAPI.Data
             return _context.Set<Building>()
                 .Include(e => e.Brand)
                 .Include(e => e.Customer)
+                .Include(e => e.AddressState)
                 .Where(e => e.CustomerId == id);
         }
     }
