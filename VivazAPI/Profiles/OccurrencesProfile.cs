@@ -9,6 +9,7 @@ namespace VivazAPI.Profiles
         public OccurrencesProfile()
         {
             CreateMap<Occurrence, OccurrenceReadDto>();
+            CreateMap<Occurrence, OccurrenceWithDetailsReadDto>();
             CreateMap<OccurrenceCreateDto, Occurrence>();
             CreateMap<OccurrenceUpdateDto, Occurrence>();
             CreateMap<Occurrence, OccurrenceUpdateDto>();

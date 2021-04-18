@@ -26,7 +26,7 @@ namespace VivazAPI.Controllers
         public IActionResult Get()
         {
             var occurrences = _repository.FindAllWithAssociations();
-            return Ok(_mapper.Map<IEnumerable<OccurrenceReadDto>>(occurrences));
+            return Ok(_mapper.Map<IEnumerable<OccurrenceWithDetailsReadDto>>(occurrences));
         }
 
         [HttpGet("{id}")]
@@ -36,7 +36,7 @@ namespace VivazAPI.Controllers
 
             if (occurrence != null)
             {
-                return Ok(_mapper.Map<OccurrenceReadDto>(occurrence));
+                return Ok(_mapper.Map<OccurrenceWithDetailsReadDto>(occurrence));
             }
             else
             {
