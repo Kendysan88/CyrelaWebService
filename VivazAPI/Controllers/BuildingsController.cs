@@ -12,11 +12,11 @@ namespace VivazAPI.Controllers
     [Route("api/buildings")]
     public class BuildingsController : ControllerBase
     {
-        private readonly IRepository<Building> _repository;
+        private readonly IBuildingRepository _repository;
 
         private readonly IMapper _mapper;
 
-        public BuildingsController(IRepository<Building> repository, IMapper mapper)
+        public BuildingsController(IBuildingRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -25,8 +25,23 @@ namespace VivazAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var buildings = _repository.FindAll();
+            var buildings = _repository.FindAllWithAssociations();
             return Ok(_mapper.Map<IEnumerable<BuildingReadDto>>(buildings));
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(Guid id)
+        {
+            var building = _repository.FindByIdWithAssociations(id);
+
+            if (building != null)
+            {
+                return Ok(_mapper.Map<BuildingReadDto>(building));
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
@@ -50,7 +65,7 @@ namespace VivazAPI.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(Guid id, BuildingUpdateDto buildingUpdateDto)
         {
-            var building = _repository.FindById(id);
+            var building = _repository.FindByIdWithAssociations(id);
 
             if (building == null) return NotFound();
 
