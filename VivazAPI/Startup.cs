@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using VivazAPI.Data;
+using VivazAPI.Domain;
 
 namespace VivazAPI
 {
@@ -33,6 +34,7 @@ namespace VivazAPI
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IBuildingRepository, BuildingRepository>();
             services.AddScoped<IOccurrenceRepository, OccurrenceRepository>();
+            services.AddScoped<IOccurrenceInWarranty, OccurrenceInWarranty>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 

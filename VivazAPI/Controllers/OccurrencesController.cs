@@ -5,6 +5,7 @@ using VivazAPI.Data;
 using VivazAPI.Models;
 using VivazAPI.Dtos;
 using System;
+using VivazAPI.Domain;
 
 namespace VivazAPI.Controllers
 {
@@ -13,12 +14,25 @@ namespace VivazAPI.Controllers
     public class OccurrencesController : ControllerBase
     {
         private readonly IOccurrenceRepository _repository;
+        private readonly IRepository<ActivityType> _repositoryActivityType;
+        private readonly IRepository<Building> _repositoryBuilding;
 
-        public readonly IMapper _mapper;
+        private readonly IOccurrenceInWarranty _warrantyValidator;
 
-        public OccurrencesController(IOccurrenceRepository repository, IMapper mapper)
+        private readonly IMapper _mapper;
+
+        public OccurrencesController(
+            IOccurrenceRepository repository,
+            IRepository<ActivityType> repositoryActivityType,
+            IRepository<Building> repositoryBuilding,
+            IOccurrenceInWarranty warrantyValidator,
+            IMapper mapper
+        )
         {
             _repository = repository;
+            _repositoryActivityType = repositoryActivityType;
+            _repositoryBuilding = repositoryBuilding;
+            _warrantyValidator = warrantyValidator;
             _mapper = mapper;
         }
 
@@ -49,6 +63,16 @@ namespace VivazAPI.Controllers
         {
             var occurrenceModel = _mapper.Map<Occurrence>(occurrenceCreateDto);
 
+            var building = _repositoryBuilding.FindById(occurrenceModel.BuildingId);
+            var activityType = _repositoryActivityType.FindById(occurrenceModel.ActivityTypeId);
+
+            if (building == null || activityType == null) return NotFound();
+
+            if (_warrantyValidator.IsOccurreceInWarranty(activityType.WarrantyInYears, building.InspectionDate))
+            {
+                return UnprocessableEntity("Este tipo de atividade não é mais aplicável à essa construção (prazo de validade).");
+            }
+
             _repository.Create(occurrenceModel);
 
             if (_repository.SaveChanges())
@@ -65,6 +89,16 @@ namespace VivazAPI.Controllers
         public IActionResult Put(Guid id, OccurrenceUpdateDto occurrenceUpdateDto)
         {
             var occurrence = _repository.FindByIdWithAssociations(id);
+
+            var building = _repositoryBuilding.FindById(occurrence.BuildingId);
+            var activityType = _repositoryActivityType.FindById(occurrence.ActivityTypeId);
+
+            if (building == null || activityType == null) return NotFound();
+
+            if (_warrantyValidator.IsOccurreceInWarranty(activityType.WarrantyInYears, building.InspectionDate))
+            {
+                return UnprocessableEntity("Este tipo de atividade não é mais aplicável à essa construção (prazo de validade).");
+            }
 
             if (occurrence == null) return NotFound();
 
