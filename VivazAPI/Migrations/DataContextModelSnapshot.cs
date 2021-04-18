@@ -150,10 +150,7 @@ namespace VivazAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ActivityId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("ActivityTypeId")
+                    b.Property<Guid>("ActivityTypeId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("BuildingId")
@@ -242,7 +239,9 @@ namespace VivazAPI.Migrations
                 {
                     b.HasOne("VivazAPI.Models.ActivityType", "ActivityType")
                         .WithMany()
-                        .HasForeignKey("ActivityTypeId");
+                        .HasForeignKey("ActivityTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("VivazAPI.Models.Building", "Building")
                         .WithMany()

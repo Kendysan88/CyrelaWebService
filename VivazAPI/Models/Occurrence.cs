@@ -19,7 +19,7 @@ namespace VivazAPI.Models
 
         // Activity Type
         [Required]
-        public Guid ActivityId { get; set; }
+        public Guid ActivityTypeId { get; set; }
 
         public ActivityType ActivityType { get; set; }
 

@@ -11,7 +11,7 @@ namespace VivazAPI.Dtos
 
         // Activity Type
         [Required]
-        public Guid ActivityId { get; set; }
+        public Guid ActivityTypeId { get; set; }
 
         public string Description { get; set; }
 

@@ -12,11 +12,11 @@ namespace VivazAPI.Controllers
     [Route("api/occurrences")]
     public class OccurrencesController : ControllerBase
     {
-        private readonly IRepository<Occurrence> _repository;
+        private readonly IOccurrenceRepository _repository;
 
         public readonly IMapper _mapper;
 
-        public OccurrencesController(IRepository<Occurrence> repository, IMapper mapper)
+        public OccurrencesController(IOccurrenceRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -25,14 +25,14 @@ namespace VivazAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var occurrences = _repository.FindAll();
+            var occurrences = _repository.FindAllWithAssociations();
             return Ok(_mapper.Map<IEnumerable<OccurrenceReadDto>>(occurrences));
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(Guid id)
         {
-            var occurrence = _repository.FindById(id);
+            var occurrence = _repository.FindByIdWithAssociations(id);
 
             if (occurrence != null)
             {
@@ -64,7 +64,7 @@ namespace VivazAPI.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(Guid id, OccurrenceUpdateDto occurrenceUpdateDto)
         {
-            var occurrence = _repository.FindById(id);
+            var occurrence = _repository.FindByIdWithAssociations(id);
 
             if (occurrence == null) return NotFound();
 

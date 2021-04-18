@@ -152,9 +152,6 @@ namespace VivazAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ActivityId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid?>("ActivityTypeId")
                         .HasColumnType("uuid");
 
