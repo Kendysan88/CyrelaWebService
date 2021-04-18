@@ -18,7 +18,7 @@ namespace VivazAPI.Controllers
 
         private readonly IOccurrenceRepository _occurrenceRepository;
 
-        public readonly IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public UsersController(
             IRepository<User> repository,
