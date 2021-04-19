@@ -14,7 +14,7 @@ namespace VivazAPI.Dtos
         public string Role { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        //public IList<Schedule> Schedules { get; set; }
+        public IList<ScheduleReadDto> Schedules { get; set; }
 
     }
 }

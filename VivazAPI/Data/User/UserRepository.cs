@@ -10,11 +10,12 @@ namespace VivazAPI.Data
     {
         public UserRepository(DataContext context) : base(context) { }
 
-        public new IEnumerable<User> FindAll()
+        public IEnumerable<User> FindAllUsers()
         {
-            return _context.Set<User>().ToList();
-        }
-
+            return _context.Set<User>()
+                .Include(u => u.Schedules)
+                .AsEnumerable();
+        }       
         public IQueryable<User> FindByRole(string role)
         {
             return _context.Set<User>().Where(x => x.Role.Contains(role));

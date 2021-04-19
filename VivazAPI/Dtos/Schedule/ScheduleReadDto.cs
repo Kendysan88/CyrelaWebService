@@ -9,10 +9,10 @@ namespace VivazAPI.Dtos
     {
         public Guid Id { get; set; }
         //Employee
-        public UserReadDto Employee { get; set; }
+        public Guid EmployeeId { get; set; }
         //Occurence
-        public OccurrenceWithDetailsReadDto Occurence { get; set; }
-        public DateTime ActualStart { get; set; }
-        public DateTime ActualEnd { get; set; }
+        public Guid OccurenceId { get; set; }
+        public DateTime? ActualStart { get; set; }
+        public DateTime? ActualEnd { get; set; }
     }
 }

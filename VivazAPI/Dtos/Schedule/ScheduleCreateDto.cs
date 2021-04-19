@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,13 +8,16 @@ namespace VivazAPI.Dtos
 {
     public class ScheduleCreateDto
     {
-        public Guid Id { get; set; }
         //Employee
-        public UserReadDto Employee { get; set; }
+        [Required]
+        public Guid EmployeeId { get; set; }
+
         //Occurence
+        [Required]
         public Guid OccurenceId { get; set; }
-        public OccurrenceWithDetailsReadDto Occurence { get; set; }
-        public DateTime ActualStart { get; set; }
-        public DateTime ActualEnd { get; set; }
+
+        public DateTime? ActualStart { get; set; }
+
+        public DateTime? ActualEnd { get; set; }
     }
 }

@@ -11,6 +11,17 @@ namespace VivazAPI.Data
     {
         public ScheduleRepository(DataContext context) : base(context) { }
 
-      
+        public IEnumerable<Schedule> FindAllWithAssociations()
+        {
+            return _context.Set<Schedule>()
+                .Include(u => u.Employee)
+                .Include(o => o.Occurence)
+                .AsEnumerable();
+        }
+
+        public Schedule FindByIdWithAssociations(Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

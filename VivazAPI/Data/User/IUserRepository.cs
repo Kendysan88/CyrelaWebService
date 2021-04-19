@@ -8,6 +8,7 @@ namespace VivazAPI.Data
 {
     public interface IUserRepository : IRepository<User>
     {
+        IEnumerable<User> FindAllUsers();
         IQueryable<User> FindByRole(string role);
 
     }

@@ -13,10 +13,6 @@ namespace VivazAPI.Controllers
     {
         private readonly IUserRepository _repository;
 
-        //private readonly IBuildingRepository _buildingRepository;
-
-        //private readonly IOccurrenceRepository _occurrenceRepository;
-
         public readonly IMapper _mapper;
 
         public UsersController(IUserRepository repository, IMapper mapper)
@@ -28,7 +24,7 @@ namespace VivazAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<UserReadDto>> GetUsers()
         {
-            var users = _repository.FindAll();
+            var users = _repository.FindAllUsers();
             return Ok(_mapper.Map<IEnumerable<UserReadDto>>(users));
         }
         //GET: api/user/5
