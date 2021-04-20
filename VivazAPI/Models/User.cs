@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,7 +15,5 @@ namespace VivazAPI.Models
         public string Role { get; set; }
 
         public IList<Schedule> Schedules { get; set; }
-
-
     }
 }
