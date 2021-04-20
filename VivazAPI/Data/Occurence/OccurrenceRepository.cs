@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using VivazAPI.Models;
 
 namespace VivazAPI.Data
@@ -10,6 +9,7 @@ namespace VivazAPI.Data
     public class OccurrenceRepository : Repository<Occurrence>, IOccurrenceRepository
     {
         public OccurrenceRepository(DataContext context) : base(context) { }
+
         public IEnumerable<Occurrence> FindAllByCustomerId(Guid id)
         {
             return _context.Set<Occurrence>()
@@ -18,6 +18,7 @@ namespace VivazAPI.Data
                 .Include(e => e.ActivityType)
                 .Where(e => e.CustomerId == id);
         }
+
         public IEnumerable<Occurrence> FindAllWithAssociations()
         {
             return _context.Set<Occurrence>()
@@ -26,6 +27,7 @@ namespace VivazAPI.Data
                 .Include(e => e.ActivityType)
                 .AsEnumerable();
         }
+
         public Occurrence FindByIdWithAssociations(Guid id)
         {
             return _context.Set<Occurrence>()

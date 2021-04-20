@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using VivazAPI.Models;
 
 namespace VivazAPI.Data
@@ -11,4 +8,3 @@ namespace VivazAPI.Data
         IQueryable<ActivityType> FindByWarranty(int warranty);
     }
 }
-  

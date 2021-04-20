@@ -1,13 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using VivazAPI.Models;
 
 namespace VivazAPI.Data
 {
-    public class ActivityTypeRepository : Repository<ActivityType> , IActivityTypeRepository
+    public class ActivityTypeRepository : Repository<ActivityType>, IActivityTypeRepository
     {
         public ActivityTypeRepository(DataContext context) : base(context) { }
 

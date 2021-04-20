@@ -35,7 +35,6 @@ namespace VivazAPI.Controllers
             _warrantyValidator = warrantyValidator;
             _mapper = mapper;
         }
-        [HttpGet]
 
         [HttpGet]
         public IActionResult Get()

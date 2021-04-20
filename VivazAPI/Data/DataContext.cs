@@ -7,8 +7,8 @@ using VivazAPI.Models;
 namespace VivazAPI.Data
 {
     public class DataContext : DbContext
-    {   
-        public DataContext(DbContextOptions<DataContext> options) : base (options) {}
+    {
+        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Brand> Brands { get; set; }
