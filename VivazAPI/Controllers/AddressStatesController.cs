@@ -1,6 +1,8 @@
+﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using VivazAPI.Data;
 using VivazAPI.Dtos;
 using VivazAPI.Models;
@@ -9,6 +11,7 @@ namespace VivazAPI.Controllers
 {
     [ApiController]
     [Route("api/address_states")]
+    [ApiController]
     public class AddressStatesController : ControllerBase
     {
         private readonly IRepository<AddressState> _repository;
@@ -21,6 +24,7 @@ namespace VivazAPI.Controllers
             _mapper = mapper;
         }
         
+        // GET: api/AddressStates
         [HttpGet]
         public IActionResult Get()
         {

@@ -1,8 +1,8 @@
-using AutoMapper;
+﻿using AutoMapper;
 using VivazAPI.Dtos;
 using VivazAPI.Models;
 
-namespace VivazAPI.Properties
+namespace VivazAPI.Profiles
 {
     public class BuildingsProfile : Profile
     {

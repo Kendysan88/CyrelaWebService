@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using VivazAPI.Models;
 
 namespace VivazAPI.Data
@@ -10,20 +11,20 @@ namespace VivazAPI.Data
     {
         public ScheduleRepository(DataContext context) : base(context) { }
 
-        public Schedule FindByIdWithAssociations(Guid id)
-        {
-            return _context.Set<Schedule>()
-                .Include(e => e.Employee)
-                .Include(e => e.Occurence)
-                .SingleOrDefault(e => e.Id == id);
-        }
-
         public IEnumerable<Schedule> FindAllWithAssociations()
         {
             return _context.Set<Schedule>()
                 .Include(e => e.Employee)
                 .Include(e => e.Occurence)
                 .AsEnumerable();
+        }
+
+        public Schedule FindByIdWithAssociations(Guid id)
+        {
+            return _context.Set<Schedule>()
+                .Include(e => e.Employee)
+                .Include(e => e.Occurence)
+                .SingleOrDefault(e => e.Id == id);
         }
 
         public bool IsAnyScheduleAtRange(Guid employeeId, DateTime actualStart, DateTime actualEnd)

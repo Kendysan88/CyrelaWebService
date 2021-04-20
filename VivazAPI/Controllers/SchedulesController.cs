@@ -1,43 +1,48 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using VivazAPI.Data;
 using VivazAPI.Models;
 using VivazAPI.Dtos;
-using System;
-using VivazAPI.Domain;
 
 namespace VivazAPI.Controllers
 {
+
     [ApiController]
     [Route("api/schedules")]
     public class SchedulesController : ControllerBase
     {
         private readonly IScheduleRepository _repository;
-
+        private readonly IRepository<User> _repositoryUser;
         private readonly IMapper _mapper;
 
-        public SchedulesController(IScheduleRepository repository, IMapper mapper)
+        public SchedulesController(
+            IScheduleRepository repository,
+            IRepository<User> repositoryUser,
+            IMapper mapper)
         {
             _repository = repository;
+            _repositoryUser = repositoryUser;
             _mapper = mapper;            
         }
-        
+        // GET: api/Users
         [HttpGet]
-        public IActionResult Get()
+        public ActionResult<IEnumerable<ScheduleReadDto>> GetSchedule()
         {
             var schedules = _repository.FindAllWithAssociations();
-            return Ok(_mapper.Map<IEnumerable<ScheduleWithDetailsReadDto>>(schedules));
+            return Ok(_mapper.Map<IEnumerable<ScheduleReadDto>>(schedules));
         }
-
+        //GET api/schedule/{id}
         [HttpGet("{id}")]
-        public IActionResult Get(Guid id)
+        public IActionResult GetScheduleById(Guid id)
         {
             var schedule = _repository.FindByIdWithAssociations(id);
 
             if (schedule != null)
             {
-                return Ok(_mapper.Map<ScheduleWithDetailsReadDto>(schedule));
+                return Ok(_mapper.Map<ScheduleReadDto>(schedule)); 
             }
             else
             {
@@ -45,8 +50,10 @@ namespace VivazAPI.Controllers
             }
         }
 
+        }
+        //POST api/schedule
         [HttpPost]
-        public IActionResult Post(ScheduleCreateDto scheduleCreateDto)
+        public IActionResult CreateSchedule(ScheduleCreateDto scheduleCreateDto)
         {
             var scheduleModel = _mapper.Map<Schedule>(scheduleCreateDto);
 
@@ -79,7 +86,7 @@ namespace VivazAPI.Controllers
 
             if (schedule == null) return NotFound();
 
-            if(scheduleUpdateDto.ActualStart.Date > scheduleUpdateDto.ActualEnd.Date)
+            if (scheduleUpdateDto.ActualStart.Date > scheduleUpdateDto.ActualEnd.Date)
             {
                 return UnprocessableEntity("A data inicial dev ser menor ou igual a data final.");
             }
@@ -120,5 +127,6 @@ namespace VivazAPI.Controllers
                 return BadRequest();
             }
         }
+
     }
 }

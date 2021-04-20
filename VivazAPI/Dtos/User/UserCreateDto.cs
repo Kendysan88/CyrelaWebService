@@ -1,10 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace VivazAPI.Models
+namespace VivazAPI.Dtos
 {
-    public class User : BaseEntity
+    public class UserCreateDto
     {
         [Required]
         public string Email { get; set; }
@@ -14,9 +16,5 @@ namespace VivazAPI.Models
 
         [Required]
         public string Role { get; set; }
-
-        public IList<Schedule> Schedules { get; set; }
-
-
     }
 }

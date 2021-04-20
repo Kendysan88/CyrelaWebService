@@ -1,11 +1,15 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using VivazAPI.Data;
 using VivazAPI.Models;
 using VivazAPI.Dtos;
 using System;
+using System.Collections.Generic;
+using VivazAPI.Data;
 using VivazAPI.Domain;
+using VivazAPI.Dtos;
+using VivazAPI.Models;
 
 namespace VivazAPI.Controllers
 {
@@ -35,6 +39,8 @@ namespace VivazAPI.Controllers
             _warrantyValidator = warrantyValidator;
             _mapper = mapper;
         }
+        [HttpGet]
+        public ActionResult<IEnumerable<OccurrenceWithDetailsReadDto>> Get()
 
         [HttpGet]
         public IActionResult Get()

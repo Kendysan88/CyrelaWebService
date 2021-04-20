@@ -1,19 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace VivazAPI.Dtos
 {
-    public class OccurrenceUpdateDto
+    public class UserUpdateDto
     {
-        // Building
         [Required]
-        public Guid BuildingId { get; set; }
+        public string Email { get; set; }
 
-        // Activity Type
         [Required]
-        public Guid ActivityTypeId { get; set; }
-
-        public string Description { get; set; }
+        public string Role { get; set; }
 
         [Required]
         public DateTime UpdatedAt { get; set; } = DateTime.Now;

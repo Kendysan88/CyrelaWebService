@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using VivazAPI.Dtos;
 using VivazAPI.Models;
 
@@ -12,7 +12,8 @@ namespace VivazAPI.Profiles
             CreateMap<Schedule, ScheduleWithDetailsReadDto>();
             CreateMap<ScheduleCreateDto, Schedule>();
             CreateMap<ScheduleUpdateDto, Schedule>();
-            CreateMap<Schedule, ScheduleReadDto>();
+            CreateMap<Schedule, ScheduleUpdateDto>();
+
         }
     }
 }

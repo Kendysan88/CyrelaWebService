@@ -1,5 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using VivazAPI.Models;
 
 namespace VivazAPI.Data
@@ -7,7 +9,7 @@ namespace VivazAPI.Data
     public interface IRepository<T> where T : BaseEntity
     {
         IEnumerable<T> FindAll();
-        T FindById(Guid id);
+        T FindById(Guid id);        
         void Create(T entity);
         void Update(T entity);
         void Delete(T entity);

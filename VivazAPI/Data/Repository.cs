@@ -1,7 +1,8 @@
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using VivazAPI.Models;
 
 namespace VivazAPI.Data
@@ -9,6 +10,7 @@ namespace VivazAPI.Data
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
         protected DataContext _context { get; }
+        private DbSet<T> _dataset;
 
         private DbSet<T> _dataset;
 
