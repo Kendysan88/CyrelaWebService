@@ -298,7 +298,7 @@ namespace VivazAPI.Migrations
             modelBuilder.Entity("VivazAPI.Models.Schedule", b =>
                 {
                     b.HasOne("VivazAPI.Models.User", "Employee")
-                        .WithMany()
+                        .WithMany("Schedules")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -312,6 +312,11 @@ namespace VivazAPI.Migrations
                     b.Navigation("Employee");
 
                     b.Navigation("Occurence");
+                });
+
+            modelBuilder.Entity("VivazAPI.Models.User", b =>
+                {
+                    b.Navigation("Schedules");
                 });
 #pragma warning restore 612, 618
         }
