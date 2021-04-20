@@ -1,7 +1,5 @@
 ﻿using System;
 
-
-
 namespace VivazAPI.Dtos
 {
     public class BuildingWithDetailsReadDto
@@ -14,8 +12,7 @@ namespace VivazAPI.Dtos
         public string AddressPostalCode { get; set; }
         public string AddressNeighborhood { get; set; }
         public string AddressCity { get; set; }
-        public Guid AddressStateId { get; set; }
+        public AddressStateReadDto AddressState { get; set; }
         public DateTime InspectionDate { get; set; }
-        
     }
 }

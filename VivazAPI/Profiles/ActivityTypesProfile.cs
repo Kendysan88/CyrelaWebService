@@ -9,6 +9,6 @@ namespace VivazAPI.Profiles
         public ActivityTypesProfile()
         {
             CreateMap<ActivityType, ActivityTypeReadDto>();
-        }
+        }        
     }
 }

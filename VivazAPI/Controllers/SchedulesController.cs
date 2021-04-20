@@ -1,16 +1,17 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using VivazAPI.Data;
-using VivazAPI.Dtos;
 using VivazAPI.Models;
+using VivazAPI.Dtos;
 
 namespace VivazAPI.Controllers
 {
 
     [ApiController]
-    [Route("api/schedule")]
+    [Route("api/schedules")]
     public class SchedulesController : ControllerBase
     {
         private readonly IScheduleRepository _repository;
@@ -24,7 +25,7 @@ namespace VivazAPI.Controllers
         {
             _repository = repository;
             _repositoryUser = repositoryUser;
-            _mapper = mapper;
+            _mapper = mapper;            
         }
         // GET: api/Users
         [HttpGet]
@@ -38,6 +39,7 @@ namespace VivazAPI.Controllers
         public IActionResult GetScheduleById(Guid id)
         {
             var schedule = _repository.FindByIdWithAssociations(id);
+
             if (schedule != null)
             {
                 return Ok(_mapper.Map<ScheduleReadDto>(schedule)); 
@@ -46,6 +48,7 @@ namespace VivazAPI.Controllers
             {
                 return NotFound();
             }
+        }
 
         }
         //POST api/schedule
@@ -54,9 +57,7 @@ namespace VivazAPI.Controllers
         {
             var scheduleModel = _mapper.Map<Schedule>(scheduleCreateDto);
 
-
-
-            if (scheduleModel.ActualStart.Date > scheduleModel.ActualEnd.Date)
+            if(scheduleModel.ActualStart.Date > scheduleModel.ActualEnd.Date)
             {
                 return UnprocessableEntity("A data inicial deve ser menor ou igual a data final.");
             }
@@ -75,8 +76,9 @@ namespace VivazAPI.Controllers
             else
             {
                 return BadRequest();
-            }           
+            }
         }
+
         [HttpPut("{id}")]
         public IActionResult Put(Guid id, ScheduleUpdateDto scheduleUpdateDto)
         {

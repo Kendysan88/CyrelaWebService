@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using VivazAPI.Models;
 
@@ -17,7 +17,7 @@ namespace VivazAPI.Data
                 .Include(e => e.Employee)
                 .Include(e => e.Occurence)
                 .AsEnumerable();
-        }     
+        }
 
         public Schedule FindByIdWithAssociations(Guid id)
         {

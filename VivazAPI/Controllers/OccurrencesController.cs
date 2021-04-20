@@ -1,5 +1,9 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using VivazAPI.Data;
+using VivazAPI.Models;
+using VivazAPI.Dtos;
 using System;
 using System.Collections.Generic;
 using VivazAPI.Data;
@@ -16,8 +20,11 @@ namespace VivazAPI.Controllers
         private readonly IOccurrenceRepository _repository;
         private readonly IRepository<ActivityType> _repositoryActivityType;
         private readonly IRepository<Building> _repositoryBuilding;
+
         private readonly IOccurrenceInWarranty _warrantyValidator;
+
         private readonly IMapper _mapper;
+
         public OccurrencesController(
             IOccurrenceRepository repository,
             IRepository<ActivityType> repositoryActivityType,
@@ -35,6 +42,8 @@ namespace VivazAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<OccurrenceWithDetailsReadDto>> Get()
 
+        [HttpGet]
+        public IActionResult Get()
         {
             var occurrences = _repository.FindAllWithAssociations();
             return Ok(_mapper.Map<IEnumerable<OccurrenceWithDetailsReadDto>>(occurrences));
@@ -59,6 +68,7 @@ namespace VivazAPI.Controllers
         public IActionResult Post(OccurrenceCreateDto occurrenceCreateDto)
         {
             var occurrenceModel = _mapper.Map<Occurrence>(occurrenceCreateDto);
+
             var building = _repositoryBuilding.FindById(occurrenceModel.BuildingId);
             var activityType = _repositoryActivityType.FindById(occurrenceModel.ActivityTypeId);
 
@@ -129,7 +139,5 @@ namespace VivazAPI.Controllers
                 return BadRequest();
             }
         }
-
-
     }
 }

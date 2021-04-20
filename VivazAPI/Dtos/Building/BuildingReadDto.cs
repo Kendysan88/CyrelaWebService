@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace VivazAPI.Dtos
 {
@@ -17,6 +14,5 @@ namespace VivazAPI.Dtos
         public string AddressCity { get; set; }
         public Guid AddressStateId { get; set; }
         public DateTime InspectionDate { get; set; }
-      
     }
 }

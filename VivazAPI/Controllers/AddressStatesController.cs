@@ -1,32 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VivazAPI.Data;
+using VivazAPI.Dtos;
 using VivazAPI.Models;
 
 namespace VivazAPI.Controllers
 {
+    [ApiController]
     [Route("api/address_states")]
     [ApiController]
     public class AddressStatesController : ControllerBase
     {
         private readonly IRepository<AddressState> _repository;
 
-        public AddressStatesController(IRepository<AddressState> repository)
+        private readonly IMapper _mapper;
+
+        public AddressStatesController(IRepository<AddressState> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
-
+        
         // GET: api/AddressStates
         [HttpGet]
-        public ActionResult<IEnumerable<AddressState>> GetAddressStates()
+        public IActionResult Get()
         {
-            var userItem = _repository.FindAll();
-            return Ok(userItem);
-        }       
+            var brands = _repository.FindAll();
+            return Ok(_mapper.Map<IEnumerable<AddressStateReadDto>>(brands));
+        }
     }
 }

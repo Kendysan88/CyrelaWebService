@@ -9,6 +9,5 @@ namespace VivazAPI.Dtos
         public BuildingReadDto Building { get; set; }
         public ActivityTypeReadDto ActivityType { get; set; }
         public string Description { get; set; }
-        
     }
 }

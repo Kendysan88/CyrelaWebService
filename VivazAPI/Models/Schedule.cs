@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using VivazAPI.Dtos;
 
 namespace VivazAPI.Models
 {
@@ -9,12 +8,19 @@ namespace VivazAPI.Models
         //User
         [Required]
         public Guid EmployeeId { get; set; }
+
         public User Employee { get; set; }
+
         //Occurence
         [Required]
-        public Guid OccurenceId { get; set; }        
+        public Guid OccurenceId { get; set; }
+
         public Occurrence Occurence { get; set; }
+
+        [Required]
         public DateTime ActualStart { get; set; }
+
+        [Required]
         public DateTime ActualEnd { get; set; }
     }
 }

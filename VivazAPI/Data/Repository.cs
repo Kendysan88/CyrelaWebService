@@ -12,6 +12,8 @@ namespace VivazAPI.Data
         protected DataContext _context { get; }
         private DbSet<T> _dataset;
 
+        private DbSet<T> _dataset;
+
         public Repository(DataContext context)
         {
             _context = context;
@@ -20,31 +22,32 @@ namespace VivazAPI.Data
 
         public IEnumerable<T> FindAll()
         {
-            return _dataset.ToList();
+            return _dataset.AsEnumerable();
         }
 
         public T FindById(Guid id)
         {
-            return _dataset.SingleOrDefault(p => p.Id.Equals(id));
+            return _dataset.SingleOrDefault(e => e.Id == id);
         }
 
         public void Create(T entity)
         {
-            if (entity == null) throw new ArgumentNullException(nameof(entity));
-            
+            if (entity == null) throw new ArgumentNullException("entity");
+
             _dataset.Add(entity);
         }
 
         public void Update(T entity)
         {
-            if (entity == null) throw new ArgumentNullException(nameof(entity));
+            if (entity == null) throw new ArgumentNullException("entity");
+
             _dataset.Update(entity);
         }
 
         public void Delete(T entity)
         {
-            if (entity == null) throw new ArgumentNullException(nameof(entity));
-            
+            if (entity == null) throw new ArgumentNullException("entity");
+
             _dataset.Remove(entity);
         }
 
@@ -52,6 +55,7 @@ namespace VivazAPI.Data
         {
             return (_context.SaveChanges() >= 0);
         }
+
         public bool Exists(Guid id)
         {
             return _dataset.Any(e => e.Id == id);

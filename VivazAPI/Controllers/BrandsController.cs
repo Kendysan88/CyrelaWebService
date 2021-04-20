@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace VivazAPI.Controllers
         private readonly IRepository<Brand> _repository;
 
         private readonly IMapper _mapper;
+
         public BrandsController(IRepository<Brand> repository, IMapper mapper)
         {
             _repository = repository;
@@ -24,7 +26,7 @@ namespace VivazAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Brand>> GetAddressStates()
+        public IActionResult Get()
         {
             var brands = _repository.FindAll();
             return Ok(_mapper.Map<IEnumerable<BrandReadDto>>(brands));
