@@ -1,15 +1,15 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace VivazAPI.Models
+namespace VivazAPI.Dtos
 {
-    public class BaseEntity : IEntity
+    public class UserUpdateDto
     {
-        [Key]
-        public Guid Id { get; set; }
+        [Required]
+        public string Email { get; set; }
 
         [Required]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public string Role { get; set; }
 
         [Required]
         public DateTime UpdatedAt { get; set; } = DateTime.Now;

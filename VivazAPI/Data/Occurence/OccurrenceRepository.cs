@@ -1,7 +1,7 @@
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using VivazAPI.Models;
 
 namespace VivazAPI.Data

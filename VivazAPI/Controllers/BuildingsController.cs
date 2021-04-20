@@ -1,10 +1,10 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using VivazAPI.Data;
-using VivazAPI.Models;
-using VivazAPI.Dtos;
 using System;
+using VivazAPI.Data;
+using VivazAPI.Dtos;
+using VivazAPI.Models;
 
 namespace VivazAPI.Controllers
 {

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace VivazAPI.Dtos
 {
@@ -14,7 +14,5 @@ namespace VivazAPI.Dtos
         public string AddressCity { get; set; }
         public AddressStateReadDto AddressState { get; set; }
         public DateTime InspectionDate { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
     }
 }

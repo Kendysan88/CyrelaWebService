@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VivazAPI.Data;
@@ -9,9 +10,10 @@ using VivazAPI.Data;
 namespace VivazAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210419224959_CreateSchedules")]
+    partial class CreateSchedules
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -298,7 +300,7 @@ namespace VivazAPI.Migrations
             modelBuilder.Entity("VivazAPI.Models.Schedule", b =>
                 {
                     b.HasOne("VivazAPI.Models.User", "Employee")
-                        .WithMany("Schedules")
+                        .WithMany()
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -312,11 +314,6 @@ namespace VivazAPI.Migrations
                     b.Navigation("Employee");
 
                     b.Navigation("Occurence");
-                });
-
-            modelBuilder.Entity("VivazAPI.Models.User", b =>
-                {
-                    b.Navigation("Schedules");
                 });
 #pragma warning restore 612, 618
         }

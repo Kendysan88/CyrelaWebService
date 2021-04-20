@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using VivazAPI.Data;
@@ -20,7 +20,7 @@ namespace VivazAPI.Controllers
             _repository = repository;
             _mapper = mapper;
         }
-        
+
         [HttpGet]
         public IActionResult Get()
         {

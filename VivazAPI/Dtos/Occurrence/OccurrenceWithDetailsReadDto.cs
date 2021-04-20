@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace VivazAPI.Dtos
 {
@@ -9,7 +9,5 @@ namespace VivazAPI.Dtos
         public BuildingReadDto Building { get; set; }
         public ActivityTypeReadDto ActivityType { get; set; }
         public string Description { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
     }
 }
