@@ -35,6 +35,7 @@ namespace VivazAPI
             services.AddScoped<IBuildingRepository, BuildingRepository>();
             services.AddScoped<IOccurrenceRepository, OccurrenceRepository>();
             services.AddScoped<IOccurrenceInWarranty, OccurrenceInWarranty>();
+            services.AddScoped<IScheduleRepository, ScheduleRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 

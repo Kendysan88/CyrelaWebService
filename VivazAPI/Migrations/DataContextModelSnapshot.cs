@@ -179,6 +179,39 @@ namespace VivazAPI.Migrations
                     b.ToTable("Occurrences");
                 });
 
+            modelBuilder.Entity("VivazAPI.Models.Schedule", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("ActualEnd")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("ActualStart")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("OccurenceId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("OccurenceId");
+
+                    b.ToTable("Schedules");
+                });
+
             modelBuilder.Entity("VivazAPI.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -260,6 +293,25 @@ namespace VivazAPI.Migrations
                     b.Navigation("Building");
 
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("VivazAPI.Models.Schedule", b =>
+                {
+                    b.HasOne("VivazAPI.Models.User", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VivazAPI.Models.Occurrence", "Occurence")
+                        .WithMany()
+                        .HasForeignKey("OccurenceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Occurence");
                 });
 #pragma warning restore 612, 618
         }
