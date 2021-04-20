@@ -24,7 +24,7 @@ namespace VivazAPI.Controllers
         {
             _repository = repository;
             _repositoryUser = repositoryUser;
-            _mapper = mapper;            
+            _mapper = mapper;
         }
         // GET: api/Users
         [HttpGet]
@@ -41,21 +41,21 @@ namespace VivazAPI.Controllers
 
             if (schedule != null)
             {
-                return Ok(_mapper.Map<ScheduleReadDto>(schedule)); 
+                return Ok(_mapper.Map<ScheduleWithDetailsReadDto>(schedule));
             }
             else
             {
                 return NotFound();
             }
         }
-        
+
         //POST api/schedule
         [HttpPost]
         public IActionResult CreateSchedule(ScheduleCreateDto scheduleCreateDto)
         {
             var scheduleModel = _mapper.Map<Schedule>(scheduleCreateDto);
 
-            if(scheduleModel.ActualStart.Date > scheduleModel.ActualEnd.Date)
+            if (scheduleModel.ActualStart.Date > scheduleModel.ActualEnd.Date)
             {
                 return UnprocessableEntity("A data inicial deve ser menor ou igual a data final.");
             }
