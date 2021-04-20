@@ -11,7 +11,6 @@ namespace VivazAPI.Controllers
 {
     [ApiController]
     [Route("api/address_states")]
-    [ApiController]
     public class AddressStatesController : ControllerBase
     {
         private readonly IRepository<AddressState> _repository;

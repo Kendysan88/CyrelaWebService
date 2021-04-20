@@ -12,8 +12,6 @@ namespace VivazAPI.Data
         protected DataContext _context { get; }
         private DbSet<T> _dataset;
 
-        private DbSet<T> _dataset;
-
         public Repository(DataContext context)
         {
             _context = context;

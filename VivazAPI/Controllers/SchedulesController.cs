@@ -2,7 +2,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using VivazAPI.Data;
 using VivazAPI.Models;
 using VivazAPI.Dtos;
@@ -49,8 +48,7 @@ namespace VivazAPI.Controllers
                 return NotFound();
             }
         }
-
-        }
+        
         //POST api/schedule
         [HttpPost]
         public IActionResult CreateSchedule(ScheduleCreateDto scheduleCreateDto)

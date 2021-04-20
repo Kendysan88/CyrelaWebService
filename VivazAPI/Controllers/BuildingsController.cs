@@ -2,12 +2,9 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using VivazAPI.Data;
 using VivazAPI.Dtos;
 using VivazAPI.Models;
-using VivazAPI.Dtos;
-using System;
 
 namespace VivazAPI.Controllers
 {
