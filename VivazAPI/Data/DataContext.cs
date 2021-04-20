@@ -15,5 +15,6 @@ namespace VivazAPI.Data
         public DbSet<AddressState> AddressStates { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Occurrence> Occurrences { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
     }
 }
