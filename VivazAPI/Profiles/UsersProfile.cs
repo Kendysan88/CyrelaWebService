@@ -9,6 +9,8 @@ namespace VivazAPI.Profiles
         public UsersProfile()
         {
             CreateMap<User, UserReadDto>();
+            CreateMap<User, UserReadWithDetailsDto>();
+            CreateMap<UserCreateDto, User>();
         }
     }
 }

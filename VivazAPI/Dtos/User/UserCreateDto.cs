@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using VivazAPI.Models;
 
 namespace VivazAPI.Dtos
 {
-    public class UserReadDto
+    public class UserCreateDto
     {
-        public Guid Id { get; set; }
+        [Required]
         public string Email { get; set; }
-        public string Role { get; set; }
 
+        [Required]
+        public string Password { get; set; }
+
+        [Required]
+        public string Role { get; set; }
     }
 }
