@@ -2,37 +2,28 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using VivazAPI.Data;
-using VivazAPI.Domain;
 using VivazAPI.Dtos;
 using VivazAPI.Models;
 
 namespace VivazAPI.Controllers
 {
-   
+
     [ApiController]
     [Route("api/schedule")]
     public class SchedulesController : ControllerBase
     {
         private readonly IScheduleRepository _repository;
         private readonly IRepository<User> _repositoryUser;
-        //private readonly IRepository<Occurrence> _repositoryOccurrence;
-        private readonly IScheduleAvailability _scheduleAvailability;
         private readonly IMapper _mapper;
 
         public SchedulesController(
             IScheduleRepository repository,
             IRepository<User> repositoryUser,
-            //IRepository<Occurrence> repositoryOccurrence,
-            IScheduleAvailability scheduleAvailability,
             IMapper mapper)
         {
             _repository = repository;
             _repositoryUser = repositoryUser;
-            //_repositoryOccurrence = repositoryOccurrence;
-            _scheduleAvailability = scheduleAvailability;
             _mapper = mapper;
         }
         // GET: api/Users
@@ -62,13 +53,17 @@ namespace VivazAPI.Controllers
         public IActionResult CreateSchedule(ScheduleCreateDto scheduleCreateDto)
         {
             var scheduleModel = _mapper.Map<Schedule>(scheduleCreateDto);
-            var user = _repositoryUser.FindById(scheduleModel.EmployeeId);
 
-            if (user == null) return NotFound();
 
-            if(_scheduleAvailability.IsDataAvailable(user.Schedules, scheduleModel.ActualStart))
+
+            if (scheduleModel.ActualStart.Date > scheduleModel.ActualEnd.Date)
             {
-                return UnprocessableEntity("A data solicitada não está disponível. Por favor, escolha outra.");
+                return UnprocessableEntity("A data inicial deve ser menor ou igual a data final.");
+            }
+
+            if (_repository.IsAnyScheduleAtRange(scheduleCreateDto.EmployeeId, scheduleCreateDto.ActualStart, scheduleCreateDto.ActualEnd))
+            {
+                return UnprocessableEntity("O funcionário indicado já possui um agendamento para esse intervalo.");
             }
 
             _repository.Create(scheduleModel);
@@ -82,30 +77,54 @@ namespace VivazAPI.Controllers
                 return BadRequest();
             }           
         }
+        [HttpPut("{id}")]
+        public IActionResult Put(Guid id, ScheduleUpdateDto scheduleUpdateDto)
+        {
+            var schedule = _repository.FindByIdWithAssociations(id);
+
+            if (schedule == null) return NotFound();
+
+            if (scheduleUpdateDto.ActualStart.Date > scheduleUpdateDto.ActualEnd.Date)
+            {
+                return UnprocessableEntity("A data inicial dev ser menor ou igual a data final.");
+            }
+
+            if (_repository.IsAnyScheduleAtRange(scheduleUpdateDto.EmployeeId, scheduleUpdateDto.ActualStart, scheduleUpdateDto.ActualEnd))
+            {
+                return UnprocessableEntity("O funcionário indicado já possui um agendamento para esse intervalo.");
+            }
+
+            _mapper.Map(scheduleUpdateDto, schedule);
+            _repository.Update(schedule);
+
+            if (_repository.SaveChanges())
+            {
+                return Ok(_mapper.Map<ScheduleWithDetailsReadDto>(schedule));
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(Guid id)
+        {
+            var schedule = _repository.FindById(id);
+
+            if (schedule == null) return NotFound();
+
+            _repository.Delete(schedule);
+
+            if (_repository.SaveChanges())
+            {
+                return NoContent();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
 
     }
 }
-/*   //POST api/commands
- *   , Name = "GetScheduleById")
-        [HttpPost]
-        public ActionResult<Schedule> CreateSchedule(Schedule schedule)
-        {
-            _repository.Create(schedule);
-            _repository.SaveChanges();
-
-            return CreatedAtAction("GetSchedule", new { id = schedule.Id }, schedule);
-        }
-        // DELETE: api/Schedule/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete (Guid id)
-        {
-            var schedule = _repository.FindById(id);
-            if (schedule == null)
-            {
-                return NotFound();
-            }
-            _repository.Delete(schedule);
-            _repository.SaveChanges();
-
-            return NoContent();           
-        }*/

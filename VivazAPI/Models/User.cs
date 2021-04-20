@@ -6,13 +6,13 @@ namespace VivazAPI.Models
 {
     public class User : BaseEntity
     {
-        //[Required]
+        [Required]
         public string Email { get; set; }
 
-        //[Required]
+        [Required]
         public string Password { get; set; }
 
-        //[Required]
+        [Required]
         public string Role { get; set; }
 
         public IList<Schedule> Schedules { get; set; }

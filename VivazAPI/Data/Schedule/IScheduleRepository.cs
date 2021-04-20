@@ -11,6 +11,6 @@ namespace VivazAPI.Data
         IEnumerable<Schedule> FindAllWithAssociations();
 
         Schedule FindByIdWithAssociations(Guid id);
-
+        bool IsAnyScheduleAtRange(Guid employeeId, DateTime actualStart, DateTime actualEnd);
     }
 }

@@ -1,59 +1,80 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using VivazAPI.Data;
 using VivazAPI.Dtos;
+using VivazAPI.Models;
 
 namespace VivazAPI.Controllers
 {
-
     [ApiController]
     [Route("api/users")]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository _repository;
+        private readonly IRepository<User> _repository;
 
-        public readonly IMapper _mapper;
+        private readonly IUserRepository _repositoryUser;
 
-        public UsersController(IUserRepository repository, IMapper mapper)
+        private readonly IBuildingRepository _buildingRepository;
+
+        private readonly IOccurrenceRepository _occurrenceRepository;
+
+        private readonly IMapper _mapper;
+
+        public UsersController(
+            IRepository<User> repository,
+            IBuildingRepository buildingRepository,
+            IOccurrenceRepository occurrenceRepository,
+            IUserRepository repositoryUser,
+            IMapper mapper
+        )
         {
             _repository = repository;
+            _repositoryUser = repositoryUser;
+            _buildingRepository = buildingRepository;
+            _occurrenceRepository = occurrenceRepository;
             _mapper = mapper;
         }
-        // GET: api/Users
+
         [HttpGet]
-        public ActionResult<IEnumerable<UserReadDto>> GetUsers()
+        public ActionResult<IEnumerable<UserReadDto>> Get()
         {
-            var users = _repository.FindAllUsers();
+            var users = _repositoryUser.FindAllUsers();
             return Ok(_mapper.Map<IEnumerable<UserReadDto>>(users));
         }
-        //GET: api/user/5
-        //[HttpGet("{Id}")]
-        //public IActionResult GetById(Guid Id)
-        //{
-        //    var user = _repository.FindById(Id);
 
-        //    if (user != null)
-        //    {
-        //        return Ok(_mapper.Map<UserReadDto>(user));
-        //    }
-        //    else
-        //    {
-        //        return NotFound();
-        //    }
-        //}
-        //GET: api/user/admin
-        [HttpGet("{role}")]
-        public IActionResult GetByRole(string role)
+        [HttpGet("{userId}")]
+        public IActionResult Get(Guid userId)
         {
-            var userItem = _repository.FindByRole(role);
-            return Ok(_mapper.Map<IEnumerable<UserReadDto>>(userItem));
+            var user = _repository.FindById(userId);
+
+            if (user != null)
+            {
+                return Ok(_mapper.Map<UserReadDto>(user));
+            }
+            else
+            {
+                return NotFound();
+            }
         }
-        /*      
-        private bool UserExists(Guid id)
+
+        [HttpGet("{userId}/buildings")]
+        public IActionResult GetBuildings(Guid userId)
         {
-            return _context.Users.Any(e => e.Id == id);
+            if (!_repository.Exists(userId)) return NotFound();
+
+            var buildings = _buildingRepository.FindAllByCustomerId(userId);
+            return Ok(_mapper.Map<IEnumerable<BuildingWithDetailsReadDto>>(buildings));
         }
-        */
+
+        [HttpGet("{userId}/occurrences")]
+        public IActionResult GetOccurrences(Guid userId)
+        {
+            if (!_repository.Exists(userId)) return NotFound();
+
+            var occurrences = _occurrenceRepository.FindAllByCustomerId(userId);
+            return Ok(_mapper.Map<IEnumerable<OccurrenceWithDetailsReadDto>>(occurrences));
+        }
     }
 }

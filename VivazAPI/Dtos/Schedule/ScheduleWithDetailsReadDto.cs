@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace VivazAPI.Dtos
 {
-    public class ScheduleReadDto
+    public class ScheduleWithDetailsReadDto
     {
         public Guid Id { get; set; }
-        //Employee
-        public Guid EmployeeId { get; set; }
-        //Occurence
-        public Guid OccurenceId { get; set; }
+        public UserReadDto Employee { get; set; }
+        public OccurrenceReadDto Occurence { get; set; }
         public DateTime ActualStart { get; set; }
         public DateTime ActualEnd { get; set; }
     }
 }
+   
+    

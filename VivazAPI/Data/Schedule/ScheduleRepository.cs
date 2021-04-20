@@ -17,11 +17,19 @@ namespace VivazAPI.Data
                 .Include(u => u.Employee)
                 .Include(o => o.Occurence)
                 .AsEnumerable();
-        }
+        }     
 
         public Schedule FindByIdWithAssociations(Guid id)
         {
             throw new NotImplementedException();
+        }
+
+        public bool IsAnyScheduleAtRange(Guid employeeId, DateTime actualStart, DateTime actualEnd)
+        {
+            return _context.Set<Schedule>()
+                .Where(e => e.EmployeeId == employeeId)
+                .Where(e => actualStart.Date <= e.ActualEnd && actualEnd.Date >= e.ActualEnd)
+                .Any();
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VivazAPI.Models;
 
-namespace VivazAPI.Data.Occurence
+namespace VivazAPI.Data
 {
     public class OccurrenceRepository : Repository<Occurrence>, IOccurrenceRepository
     {

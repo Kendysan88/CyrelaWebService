@@ -7,7 +7,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using VivazAPI.Data;
-using VivazAPI.Data.Occurence;
 using VivazAPI.Domain;
 
 namespace VivazAPI
@@ -33,7 +32,6 @@ namespace VivazAPI
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IActivityTypeRepository, ActivityTypeRepository>();
             services.AddScoped<IScheduleRepository, ScheduleRepository>();
-            services.AddScoped<IScheduleAvailability, ScheduleAvailability>();
             services.AddScoped<IBuildingRepository, BuildingRepository>();
             services.AddScoped<IOccurrenceRepository, OccurrenceRepository>();
             services.AddScoped<IOccurrenceInWarranty, OccurrenceInWarranty>();

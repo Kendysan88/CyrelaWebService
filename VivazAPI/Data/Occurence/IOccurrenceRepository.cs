@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VivazAPI.Models;
 
-namespace VivazAPI.Data.Occurence
+namespace VivazAPI.Data
 {
     public interface IOccurrenceRepository : IRepository<Occurrence>
     {

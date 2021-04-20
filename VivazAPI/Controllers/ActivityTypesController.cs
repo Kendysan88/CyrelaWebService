@@ -33,13 +33,7 @@ namespace VivazAPI.Controllers
         {
             var activityTypes = _repository.FindByWarranty(warranty);               
             return Ok(activityTypes);
-        }
-       
-        /*
-        private bool ActivityTypeExists(Guid id)
-        {
-            return _context.ActivityTypes.Any(e => e.Id == id);
-        }
-        */
+        }       
+      
     }
 }

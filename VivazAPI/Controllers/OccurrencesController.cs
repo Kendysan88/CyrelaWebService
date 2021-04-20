@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using VivazAPI.Data;
-using VivazAPI.Data.Occurence;
 using VivazAPI.Domain;
 using VivazAPI.Dtos;
 using VivazAPI.Models;

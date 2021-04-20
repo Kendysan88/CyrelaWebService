@@ -16,8 +16,10 @@ namespace VivazAPI.Dtos
         [Required]
         public Guid OccurenceId { get; set; }
 
-        public DateTime? ActualStart { get; set; }
+        [Required]
+        public DateTime ActualStart { get; set; }
 
-        public DateTime? ActualEnd { get; set; }
+        [Required]
+        public DateTime ActualEnd { get; set; }
     }
 }
